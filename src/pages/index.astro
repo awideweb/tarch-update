@@ -1,0 +1,46 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import ProjectGallery from '../components/ProjectGallery';
+import { projects } from '../data/projects';
+
+// Filter to only featured projects for the home page
+const featuredProjects = projects.filter(project => project.featured);
+---
+
+<Layout 
+  title="Talaat Studio" 
+  description="Talaat Studio specializes in carefully crafted projects both residential and small commercial. Our process is centered on creative, integrated strategies that synthesize functional requirements with the application of modern materials, systems and assemblies."
+>
+  <Header />
+  
+  <main class="bg-white">
+    <!-- Logo and Company Name -->
+    <section class="py-20 bg-white">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+          <div class="flex justify-center mb-8">
+            <img 
+              src="/src/assets/logo/talaat_logo_updated.svg" 
+              alt="Talaat Studio" 
+              class="h-32 w-auto"
+            />
+          </div>
+          <h2 class="text-3xl md:text-4xl font-bold text-black tracking-widest">
+            TALAAT ARCHITECTS
+          </h2>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Projects -->
+    <section class="py-20 bg-gray-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <ProjectGallery projects={featuredProjects} client:load />
+      </div>
+    </section>
+  </main>
+  
+  <Footer />
+</Layout>

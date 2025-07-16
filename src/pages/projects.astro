@@ -1,0 +1,43 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import ProjectGallery from '../components/ProjectGallery';
+import { projects } from '../data/projects';
+---
+
+<Layout 
+  title="Projects | Talaat Studio" 
+  description="Explore our portfolio of carefully crafted residential and commercial projects. Click on any project thumbnail to browse through the gallery of images."
+>
+  <Header />
+  
+  <main class="bg-white">
+    <!-- Page Header -->
+    <section class="bg-white border-b border-gray-200 py-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+          <h1 class="text-4xl md:text-5xl font-bold text-black mb-6">
+            PROJECTS
+          </h1>
+          <div class="flex justify-center space-x-8 mb-8">
+            <a href="/projects" class="text-sm font-medium text-black border-b-2 border-black pb-1">ALL</a>
+            <a href="/projects/architecture" class="text-sm font-medium text-gray-600 hover:text-black transition-colors">ARCHITECTURE</a>
+            <a href="/projects/fragments" class="text-sm font-medium text-gray-600 hover:text-black transition-colors">FRAGMENTS</a>
+            <a href="/projects/research" class="text-sm font-medium text-gray-600 hover:text-black transition-colors">RESEARCH</a>
+            <a href="/projects/objects" class="text-sm font-medium text-gray-600 hover:text-black transition-colors">OBJECTS</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Project Gallery -->
+    <section class="py-20 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <ProjectGallery projects={projects} client:load />
+      </div>
+    </section>
+  </main>
+  
+  <Footer />
+</Layout>

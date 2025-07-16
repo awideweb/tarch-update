@@ -1,0 +1,107 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { contact } from '../data/contact';
+---
+
+<Layout 
+  title="Contact | Talaat Studio" 
+  description="Get in touch with Talaat Studio for your architectural project needs. We specialize in residential and small commercial design."
+>
+  <Header />
+  
+  <main class="bg-white">
+    <!-- Hero Section -->
+    <section class="relative h-96">
+      <div class="absolute inset-0">
+        <img 
+          src="/src/assets/residential/6_KIAWAH/4_Ocean Front Residence_high res_Terrace View.jpg" 
+          alt="Contact Talaat Studio" 
+          class="w-full h-full object-cover"
+        />
+        <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+      </div>
+      <div class="relative z-10 h-full flex items-center justify-center">
+        <div class="text-center text-white">
+          <h1 class="text-4xl md:text-5xl font-bold">
+            CONTACT
+          </h1>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Content -->
+    <section class="py-20 bg-white">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+          
+          <!-- Contact Information -->
+          <div>
+            <h2 class="text-2xl font-bold text-black mb-8">
+              GET IN TOUCH
+            </h2>
+            <div class="space-y-6">
+              <div>
+                <h3 class="text-lg font-semibold text-black mb-2">ADDRESS</h3>
+                <p class="text-gray-700">{contact.address}</p>
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold text-black mb-2">PHONE</h3>
+                <p class="text-gray-700">{contact.phone}</p>
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold text-black mb-2">EMAIL</h3>
+                <p class="text-gray-700">
+                  <a href={`mailto:${contact.email}`} class="text-black hover:text-gray-700 transition-colors">
+                    {contact.email}
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ready to Start Section -->
+          <div>
+            <h2 class="text-2xl font-bold text-black mb-8">
+              READY TO START YOUR PROJECT?
+            </h2>
+            <p class="text-lg text-gray-700 leading-relaxed mb-8">
+              We'd love to discuss how we can bring your vision to life with thoughtful design and expert craftsmanship. 
+              Whether you're planning a residential renovation or a small commercial project, our team is ready to help.
+            </p>
+            <a 
+              href={`mailto:${contact.email}`}
+              class="inline-flex items-center px-8 py-4 border border-black text-lg font-medium text-black hover:bg-black hover:text-white transition-colors duration-200"
+            >
+              EMAIL US DIRECTLY
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <Footer />
+</Layout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.querySelector('form');
+    
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const formData = new FormData(form);
+      const name = formData.get('name');
+      const email = formData.get('email');
+      const subject = formData.get('subject');
+      const message = formData.get('message');
+      
+      // Create mailto link
+      const mailtoLink = `mailto:info@TalaatArchitects.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`From: ${name} (${email})\n\n${message}`)}`;
+      
+      window.location.href = mailtoLink;
+    });
+  });
+</script>

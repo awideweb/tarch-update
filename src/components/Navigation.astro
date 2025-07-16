@@ -1,0 +1,65 @@
+---
+export interface Props {
+  mobile?: boolean;
+}
+
+const { mobile = false } = Astro.props;
+const currentPath = Astro.url.pathname;
+
+const navItems = [
+  { href: '/', label: 'HOME' },
+  { href: '/about', label: 'ABOUT' },
+  { href: '/contact', label: 'CONTACT' },
+];
+
+const baseClasses = mobile 
+  ? 'block px-3 py-2 text-base font-medium transition-colors duration-200'
+  : 'inline-flex items-center px-3 py-2 text-sm font-medium transition-colors duration-200';
+
+const activeClasses = mobile
+  ? 'bg-gray-100 text-black'
+  : 'border-b-2 border-black text-black';
+
+const inactiveClasses = mobile
+  ? 'text-gray-700 hover:bg-gray-100 hover:text-black'
+  : 'text-gray-700 hover:text-black border-b-2 border-transparent hover:border-gray-300';
+---
+
+{navItems.map((item) => (
+  <div class={mobile ? 'block' : 'relative group'}>
+    <a
+      href={item.href}
+      class={`${baseClasses} ${
+        currentPath === item.href || (currentPath === '/tarch-modern/' && item.href === '/') 
+          ? activeClasses 
+          : inactiveClasses
+      }`}
+    >
+      {item.label}
+    </a>
+    {item.submenu && !mobile && (
+      <div class="absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
+        {item.submenu.map((subItem) => (
+          <a
+            href={subItem.href}
+            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-black transition-colors duration-200"
+          >
+            {subItem.label}
+          </a>
+        ))}
+      </div>
+    )}
+    {item.submenu && mobile && (
+      <div class="ml-4 mt-2 space-y-1">
+        {item.submenu.map((subItem) => (
+          <a
+            href={subItem.href}
+            class="block px-3 py-2 text-sm text-gray-600 hover:bg-gray-100 hover:text-black transition-colors duration-200"
+          >
+            {subItem.label}
+          </a>
+        ))}
+      </div>
+    )}
+  </div>
+))}
